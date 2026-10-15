@@ -444,21 +444,33 @@
 
             <div class="dashboard-grid">
                 <div class="boxes-grid">
-                    <a href="https://my670095-code.github.io/Menu-Mix/" target="_blank" rel="noopener" class="box" data-num="1">
+                    <a href="https://cswebapps.com/creativeplanner/backend/Streamdashboard" target="_blank" rel="noopener" class="box" data-num="1">
                         <span class="num-badge">[1]</span>
-                        <i class="fas fa-chart-simple"></i><span>Menu Mix</span><small>Dashboard</small>
+                        <i class="fas fa-tower-broadcast"></i><span>Stream Planner</span><small>Dashboard</small>
                     </a>
-                    <a href="https://my670095-code.github.io/ViewX-s/" target="_blank" rel="noopener" class="box" data-num="2">
+                    <a href="https://cswebapps.com/storescheduling/" target="_blank" rel="noopener" class="box" data-num="2">
                         <span class="num-badge">[2]</span>
-                        <i class="fas fa-boxes-stacked"></i><span>Surprise Inventory</span><small>Check</small>
+                        <i class="fas fa-calendar-days"></i><span>Store Scheduling</span><small>Open</small>
                     </a>
-                    <a href="https://my670095-code.github.io/SGM/" target="_blank" rel="noopener" class="box" data-num="3">
+                    <a href="https://drcafeinventory.azurewebsites.net/Dashboard" target="_blank" rel="noopener" class="box" data-num="3">
                         <span class="num-badge">[3]</span>
-                        <i class="fas fa-people-group"></i><span>SGM</span><small>View</small>
+                        <i class="fas fa-mug-hot"></i><span>Intro</span><small>Dashboard</small>
                     </a>
-                    <a href="https://my670095-code.github.io/Sales-Analysis/" target="_blank" rel="noopener" class="box" data-num="4">
+                    <a href="https://cswebapps.com/dmsweb/backend/dashboard" target="_blank" rel="noopener" class="box" data-num="4">
                         <span class="num-badge">[4]</span>
-                        <i class="fas fa-chart-line"></i><span>Sales Analysis</span><small>Explore</small>
+                        <i class="fas fa-folder-tree"></i><span>DMS</span><small>Dashboard</small>
+                    </a>
+                    <a href="https://cswebapps.com/StandAloneSBV2/login" target="_blank" rel="noopener" class="box" data-num="5">
+                        <span class="num-badge">[5]</span>
+                        <i class="fas fa-mug-saucer"></i><span>Smart Brew</span><small>Login</small>
+                    </a>
+                    <a href="http://217.145.247.44:81/AMS-Next/DASHBOARD" target="_blank" rel="noopener" class="box" data-num="6">
+                        <span class="num-badge">[6]</span>
+                        <i class="fas fa-user-clock"></i><span>Attendance</span><small>AMS-Next</small>
+                    </a>
+                    <a href="http://217.145.247.42:81/DCInfo/Default.aspx?ReturnUrl=%2fDCInfo%2fHome.aspx" target="_blank" rel="noopener" class="box" data-num="7">
+                        <span class="num-badge">[7]</span>
+                        <i class="fas fa-circle-info"></i><span>Info Center</span><small>DCInfo</small>
                     </a>
                 </div>
 
@@ -499,8 +511,8 @@
 
     <div class="shortcuts-panel" id="shortcutsPanel">
         <h3>⌨ SHORTCUTS &amp; COMMANDS</h3>
-        <div class="row"><span class="desc">Open a module</span><span class="key">open menu mix</span></div>
-        <div class="row"><span class="desc">Quick-open modules</span><span class="key">1 · 2 · 3 · 4</span></div>
+        <div class="row"><span class="desc">Open a module</span><span class="key">open stream planner</span></div>
+        <div class="row"><span class="desc">Quick-open modules</span><span class="key">1 · 2 · 3 · 4 · 5 · 6 · 7</span></div>
         <div class="row"><span class="desc">List available modules</span><span class="key">ls</span></div>
         <div class="row"><span class="desc">Show current user</span><span class="key">whoami</span></div>
         <div class="row"><span class="desc">Save notes</span><span class="key">save</span></div>
@@ -558,14 +570,18 @@
 
             // ========== LINKS ==========
             const LINKS = [
-                { name: 'Menu Mix', url: 'https://my670095-code.github.io/Menu-Mix/', aliases: ['menu mix', 'menu-mix', 'menumix', 'menu', 'mix'] },
-                { name: 'Surprise Inventory', url: 'https://my670095-code.github.io/ViewX-s/', aliases: ['surprise inventory', 'surprise', 'inventory', 'viewx', 'view x'] },
-                { name: 'SGM', url: 'https://my670095-code.github.io/SGM/', aliases: ['sgm', 's g m'] },
-                { name: 'Sales Analysis', url: 'https://my670095-code.github.io/Sales-Analysis/', aliases: ['sales analysis', 'sales', 'analysis', 'sales-analysis'] }
+                { name: 'Stream Planner',   url: 'https://cswebapps.com/creativeplanner/backend/Streamdashboard', aliases: ['stream planner', 'stream', 'planner', 'streamplanner', 'creativeplanner'] },
+                { name: 'Store Scheduling', url: 'https://cswebapps.com/storescheduling/',                        aliases: ['store scheduling', 'store', 'scheduling', 'storescheduling'] },
+                { name: 'Intro',            url: 'https://drcafeinventory.azurewebsites.net/Dashboard',           aliases: ['intro', 'drcafe', 'dr cafe', 'inventory', 'drcafeinventory'] },
+                { name: 'DMS',              url: 'https://cswebapps.com/dmsweb/backend/dashboard',                aliases: ['dms', 'dmsweb', 'document management', 'document'] },
+                { name: 'Smart Brew',       url: 'https://cswebapps.com/StandAloneSBV2/login',                    aliases: ['smart brew', 'smartbrew', 'brew', 'sbv2', 'standalone'] },
+                { name: 'Attendance',       url: 'http://217.145.247.44:81/AMS-Next/DASHBOARD',                   aliases: ['attendance', 'ams', 'ams next', 'ams-next', 'amsnext'] },
+                { name: 'Info Center',      url: 'http://217.145.247.42:81/DCInfo/Default.aspx?ReturnUrl=%2fDCInfo%2fHome.aspx', aliases: ['info center', 'info', 'infocenter', 'dcinfo', 'dc info', 'center'] }
             ];
 
             const ALL_COMMANDS = [
-                'open menu mix', 'open surprise inventory', 'open sgm', 'open sales analysis',
+                'open stream planner', 'open store scheduling', 'open intro', 'open dms',
+                'open smart brew', 'open attendance', 'open info center',
                 'help', 'ls', 'whoami', 'notes', 'save', 'export', 'clear', 'matrix',
                 'sound on', 'sound off',
                 'pomodoro 5', 'pomodoro 15', 'pomodoro 25', 'pomodoro 45', 'pomodoro stop',
@@ -718,8 +734,8 @@
                     cmdSound(); return;
                 }
                 if (input === 'ls') {
-                    logCommand(rawInput, 'Modules: Menu Mix · Surprise Inventory · SGM · Sales Analysis');
-                    showToast('4 modules available', false);
+                    logCommand(rawInput, 'Modules: Stream Planner · Store Scheduling · Intro · DMS · Smart Brew · Attendance · Info Center');
+                    showToast('7 modules available', false);
                     cmdSound(); return;
                 }
                 if (input === 'whoami') {
@@ -810,8 +826,6 @@
                 if (!prefix) { hideAutocomplete(); return; }
                 const matches = ALL_COMMANDS.filter(c => c.startsWith(prefix.toLowerCase()));
                 if (matches.length === 0) { hideAutocomplete(); return; }
-                // We'll show a small inline suggestion inside the log line
-                // For simplicity, just show toast
                 acIndex = 0;
             }
             function hideAutocomplete() { acIndex = -1; }
@@ -834,6 +848,7 @@
                 '[ OK ] Access level: ADMINISTRATOR',
                 '[ OK ] IndexedDB storage engine online',
                 '[ OK ] Matrix rendering core loaded',
+                '[ OK ] 7 external modules registered...',
                 '[ OK ] All systems nominal.',
                 '',
                 '> Welcome back, Yousuf.',
@@ -1125,19 +1140,18 @@
                     }
                 }
                 else {
-                    // record typing activity
                     recordActivity();
                     if (soundEnabled) clickSound();
                 }
             });
 
-            // Numeric shortcuts 1-4
+            // Numeric shortcuts 1-7
             document.addEventListener('keydown', e => {
                 const tag = (e.target.tagName || '').toLowerCase();
                 if (tag === 'input' || tag === 'textarea') return;
                 if (e.key === '?') { e.preventDefault(); toggleShortcuts(); return; }
                 const num = parseInt(e.key, 10);
-                if (num >= 1 && num <= 4) {
+                if (num >= 1 && num <= 7) {
                     const box = document.querySelector('.box[data-num="' + num + '"]');
                     if (box) {
                         e.preventDefault();
