@@ -295,6 +295,7 @@
         .mod[data-num="9"]  .tile { --tile-bg: #fee2e2; --tile-color: #dc2626; } .mod[data-num="9"]:hover  { --tile-color: #dc2626; }
         .mod[data-num="10"] .tile { --tile-bg: #fef9c3; --tile-color: #ca8a04; } .mod[data-num="10"]:hover { --tile-color: #ca8a04; }
         .mod[data-num="11"] .tile { --tile-bg: #e2e8f0; --tile-color: #475569; } .mod[data-num="11"]:hover { --tile-color: #475569; }
+        .mod[data-num="12"] .tile { --tile-bg: #fce7f3; --tile-color: #be185d; } .mod[data-num="12"]:hover { --tile-color: #be185d; }
 
         /* FOCUS CARD */
         .focus-card {
@@ -733,7 +734,7 @@
             <div class="modules-card">
                 <div class="section-head">
                     <h2><i class="fas fa-th-large"></i> Modules</h2>
-                    <span class="count-badge">11 active</span>
+                    <span class="count-badge">12 active</span>
                 </div>
                 <div class="modules-grid">
                     <a href="https://my670095-code.github.io/Menu-Mix/" target="_blank" rel="noopener" class="mod" data-num="1">
@@ -779,6 +780,10 @@
                     <a href="http://217.145.247.42:81/DCInfo/Default.aspx?ReturnUrl=%2fDCInfo%2fHome.aspx" target="_blank" rel="noopener" class="mod" data-num="11">
                         <span class="num">[11]</span><div class="tile"><i class="fas fa-circle-info"></i></div>
                         <span class="name">Info Center</span><span class="tag">DCInfo</span>
+                    </a>
+                    <a href="https://docs.google.com/spreadsheets/d/1RHAskAXkUzMfORrokg2OZAO-e8gxf4aFwCucT1r9QvA/edit?pli=1&gid=686722685#gid=686722685" target="_blank" rel="noopener" class="mod" data-num="12">
+                        <span class="num">[12]</span><div class="tile"><i class="fas fa-handover"></i></div>
+                        <span class="name">DC Handover</span><span class="tag">Spreadsheet</span>
                     </a>
                 </div>
             </div>
@@ -968,13 +973,14 @@
                 { name: 'DMS',                url: 'https://cswebapps.com/dmsweb/backend/dashboard',                aliases: ['dms', 'dmsweb', 'document management', 'document'] },
                 { name: 'Smart Brew',         url: 'https://cswebapps.com/StandAloneSBV2/login',                    aliases: ['smart brew', 'smartbrew', 'brew', 'sbv2', 'standalone'] },
                 { name: 'Attendance',         url: 'http://217.145.247.44:81/AMS-Next/DASHBOARD',                   aliases: ['attendance', 'ams', 'ams next', 'ams-next', 'amsnext'] },
-                { name: 'Info Center',        url: 'http://217.145.247.42:81/DCInfo/Default.aspx?ReturnUrl=%2fDCInfo%2fHome.aspx', aliases: ['info center', 'info', 'infocenter', 'dcinfo', 'dc info', 'center'] }
+                { name: 'Info Center',        url: 'http://217.145.247.42:81/DCInfo/Default.aspx?ReturnUrl=%2fDCInfo%2fHome.aspx', aliases: ['info center', 'info', 'infocenter', 'dcinfo', 'dc info', 'center'] },
+                { name: 'DC Handover',        url: 'https://docs.google.com/spreadsheets/d/1RHAskAXkUzMfORrokg2OZAO-e8gxf4aFwCucT1r9QvA/edit?pli=1&gid=686722685#gid=686722685', aliases: ['dc handover', 'handover', 'dc handover sheet', 'dc', 'handover sheet', 'dchandover'] }
             ];
 
             const ALL_COMMANDS = [
                 'open menu mix', 'open surprise inventory', 'open sgm', 'open sales analysis',
                 'open stream planner', 'open store scheduling', 'open intro', 'open dms',
-                'open smart brew', 'open attendance', 'open info center',
+                'open smart brew', 'open attendance', 'open info center', 'open dc handover',
                 'notepad', 'notes', 'calendar', 'cal', 'calculator', 'calc', 'clock',
                 'closeall', 'close all',
                 'help', 'ls', 'whoami', 'clear', 'sound on', 'sound off',
@@ -1393,7 +1399,7 @@
                 }
                 if (input === 'ls') {
                     logCommand(rawInput, 'Modules: ' + LINKS.map(l => l.name).join(' · '));
-                    showToast('11 modules available', false);
+                    showToast('12 modules available', false);
                     cmdSound(); return;
                 }
                 if (input === 'whoami') {
@@ -1487,7 +1493,7 @@
             // ========== BOOT ==========
             const BOOT_LINES = [
                 '> Initializing workspace...',
-                '> Loading 11 modules...',
+                '> Loading 12 modules...',
                 '> Verifying user: Yousuf',
                 '> Access level: ADMINISTRATOR',
                 '> All systems ready.',
