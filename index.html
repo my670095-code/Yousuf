@@ -151,7 +151,7 @@
         }
         .logout-btn:hover { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
 
-        /* TERMINAL — slim, only input + log */
+        /* TERMINAL */
         .terminal-card {
             background: var(--terminal-bg);
             border-radius: var(--radius-lg);
@@ -175,7 +175,7 @@
             padding: 0.4rem 0.4rem 0.5rem;
             scrollbar-width: thin;
             scrollbar-color: #334155 transparent;
-            display: none;   /* hidden when empty */
+            display: none;
         }
         .terminal-log.has-content { display: block; }
         .terminal-log::-webkit-scrollbar { width: 6px; }
@@ -255,12 +255,16 @@
             min-height: 130px;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
         }
         .mod:hover {
             transform: translateY(-3px);
             border-color: var(--tile-color, var(--accent));
             box-shadow: 0 10px 24px -6px rgba(15, 23, 42, 0.12), 0 2px 4px rgba(15, 23, 42, 0.04);
         }
+        .mod:active { transform: translateY(-1px); }
         .mod .tile {
             width: 46px; height: 46px;
             border-radius: 12px;
@@ -403,8 +407,12 @@
         .win-title {
             font-size: 0.85rem; font-weight: 600; color: var(--text);
             display: flex; align-items: center; gap: 0.5rem;
+            min-width: 0;
         }
-        .win-title i { color: var(--accent); font-size: 0.85rem; }
+        .win-title i { color: var(--accent); font-size: 0.85rem; flex-shrink: 0; }
+        .win-title span {
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
         .win-controls { display: flex; gap: 0.4rem; }
         .win-btn {
             width: 24px; height: 24px;
@@ -421,6 +429,118 @@
         .win-btn.close:hover { background: #fee2e2; color: #dc2626; }
         .win-body { padding: 1rem; overflow: auto; }
 
+        /* Module popup window */
+        .win-module { width: 960px; height: 640px; max-width: calc(100vw - 2rem); max-height: calc(100vh - 2rem); }
+        .win-module .win-body {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            background: #f8fafc;
+        }
+        .win-module iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+            background: white;
+        }
+        .win-module .mod-fallback {
+            position: absolute; inset: 0;
+            display: none;
+            flex-direction: column; align-items: center; justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(160deg, #f8fafc, #eef2f8);
+            gap: 1rem;
+        }
+        .win-module .mod-fallback.show { display: flex; }
+        .win-module .mod-fallback .fallback-icon {
+            width: 72px; height: 72px;
+            border-radius: 20px;
+            background: white;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            color: var(--accent);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+        }
+        .win-module .mod-fallback h3 {
+            font-size: 1.15rem; color: var(--text); font-weight: 700;
+        }
+        .win-module .mod-fallback p {
+            font-size: 0.88rem; color: var(--text-muted); max-width: 400px;
+            line-height: 1.5;
+        }
+        .win-module .mod-fallback .fallback-btn {
+            margin-top: 0.4rem;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            color: white;
+            border: none; border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem; font-weight: 600;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 0.5rem;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+        .win-module .mod-fallback .fallback-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.4);
+        }
+        .win-module .mod-fallback .fallback-hint {
+            font-size: 0.75rem; color: var(--text-soft);
+            margin-top: 0.3rem;
+        }
+
+        .mod-toolbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.55rem 0.9rem;
+            background: #f8fafc;
+            border-top: 1px solid var(--border);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .mod-toolbar .status {
+            display: flex; align-items: center; gap: 0.45rem;
+            font-weight: 600;
+        }
+        .mod-toolbar .status .dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .mod-toolbar .status.loaded .dot {
+            background: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        .mod-toolbar .status.blocked .dot {
+            background: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+        .mod-toolbar .actions { display: flex; gap: 0.4rem; }
+        .mod-toolbar .tool-btn {
+            background: white; border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: 8px;
+            padding: 0.35rem 0.7rem;
+            font-size: 0.75rem; font-weight: 600;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 0.35rem;
+            transition: all 0.15s;
+        }
+        .mod-toolbar .tool-btn:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Notepad */
         .win-notepad textarea {
             width: 100%; min-height: 240px;
             border: 1px solid var(--border);
@@ -460,6 +580,7 @@
         }
         .win-action.primary:hover { box-shadow: 0 6px 14px rgba(99, 102, 241, 0.3); }
 
+        /* Calendar */
         .cal-head {
             display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 0.8rem;
@@ -501,6 +622,7 @@
         }
         .cal-day.today:hover { background: linear-gradient(135deg, var(--accent), #8b5cf6); }
 
+        /* Calculator */
         .calc-display {
             background: #0f172a;
             color: white;
@@ -547,6 +669,7 @@
         .calc-btn.eq:hover { box-shadow: 0 6px 14px rgba(99, 102, 241, 0.3); }
         .calc-btn.clr { background: #fee2e2; color: #dc2626; }
 
+        /* World Clock */
         .big-clock {
             font-family: 'JetBrains Mono', monospace;
             font-size: 3rem; font-weight: 700;
@@ -583,6 +706,7 @@
             font-variant-numeric: tabular-nums;
         }
 
+        /* Toast */
         .toast {
             position: fixed; bottom: 30px; right: 30px;
             background: white; border: 1px solid var(--border); color: var(--text);
@@ -602,6 +726,7 @@
         .toast.error i { color: #dc2626; }
         .toast.error span { color: #991b1b; }
 
+        /* Boot */
         .boot-overlay {
             position: fixed; inset: 0;
             background: #0f172a; color: var(--terminal-green);
@@ -623,6 +748,7 @@
         }
         @keyframes blink { 50% { opacity: 0; } }
 
+        /* Shortcuts Panel */
         .shortcuts-panel {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0.9);
@@ -668,7 +794,8 @@
             .mod span.name { font-size: 0.72rem; }
             .pomodoro-ring { width: 150px; height: 150px; }
             .pomodoro-center .time { font-size: 1.7rem; }
-            .win { left: 0.5rem !important; right: 0.5rem !important; width: auto !important; top: 4rem !important; }
+            .win { left: 0.5rem !important; right: 0.5rem !important; width: auto !important; top: 4rem !important; height: auto !important; max-height: calc(100vh - 5rem) !important; }
+            .win-module { height: 70vh !important; }
         }
     </style>
 </head>
@@ -721,7 +848,6 @@
             </div>
         </div>
 
-        <!-- TERMINAL — slim, only log + input -->
         <div class="terminal-card">
             <div class="terminal-log" id="terminalLog"></div>
             <div class="terminal-bar">
@@ -736,56 +862,7 @@
                     <h2><i class="fas fa-th-large"></i> Modules</h2>
                     <span class="count-badge">12 active</span>
                 </div>
-                <div class="modules-grid">
-                    <a href="https://my670095-code.github.io/Menu-Mix/" target="_blank" rel="noopener" class="mod" data-num="1">
-                        <span class="num">[1]</span><div class="tile"><i class="fas fa-chart-simple"></i></div>
-                        <span class="name">Menu Mix</span><span class="tag">Dashboard</span>
-                    </a>
-                    <a href="https://my670095-code.github.io/ViewX-s/" target="_blank" rel="noopener" class="mod" data-num="2">
-                        <span class="num">[2]</span><div class="tile"><i class="fas fa-boxes-stacked"></i></div>
-                        <span class="name">Surprise Inventory</span><span class="tag">Check</span>
-                    </a>
-                    <a href="https://my670095-code.github.io/SGM/" target="_blank" rel="noopener" class="mod" data-num="3">
-                        <span class="num">[3]</span><div class="tile"><i class="fas fa-people-group"></i></div>
-                        <span class="name">SGM</span><span class="tag">View</span>
-                    </a>
-                    <a href="https://my670095-code.github.io/Sales-Analysis/" target="_blank" rel="noopener" class="mod" data-num="4">
-                        <span class="num">[4]</span><div class="tile"><i class="fas fa-chart-line"></i></div>
-                        <span class="name">Sales Analysis</span><span class="tag">Explore</span>
-                    </a>
-                    <a href="https://cswebapps.com/creativeplanner/backend/Streamdashboard" target="_blank" rel="noopener" class="mod" data-num="5">
-                        <span class="num">[5]</span><div class="tile"><i class="fas fa-tower-broadcast"></i></div>
-                        <span class="name">Stream Planner</span><span class="tag">Dashboard</span>
-                    </a>
-                    <a href="https://cswebapps.com/storescheduling/" target="_blank" rel="noopener" class="mod" data-num="6">
-                        <span class="num">[6]</span><div class="tile"><i class="fas fa-calendar-days"></i></div>
-                        <span class="name">Store Scheduling</span><span class="tag">Open</span>
-                    </a>
-                    <a href="https://drcafeinventory.azurewebsites.net/Dashboard" target="_blank" rel="noopener" class="mod" data-num="7">
-                        <span class="num">[7]</span><div class="tile"><i class="fas fa-mug-hot"></i></div>
-                        <span class="name">Intro</span><span class="tag">Dashboard</span>
-                    </a>
-                    <a href="https://cswebapps.com/dmsweb/backend/dashboard" target="_blank" rel="noopener" class="mod" data-num="8">
-                        <span class="num">[8]</span><div class="tile"><i class="fas fa-folder-tree"></i></div>
-                        <span class="name">DMS</span><span class="tag">Dashboard</span>
-                    </a>
-                    <a href="https://cswebapps.com/StandAloneSBV2/login" target="_blank" rel="noopener" class="mod" data-num="9">
-                        <span class="num">[9]</span><div class="tile"><i class="fas fa-mug-saucer"></i></div>
-                        <span class="name">Smart Brew</span><span class="tag">Login</span>
-                    </a>
-                    <a href="http://217.145.247.44:81/AMS-Next/DASHBOARD" target="_blank" rel="noopener" class="mod" data-num="10">
-                        <span class="num">[10]</span><div class="tile"><i class="fas fa-user-clock"></i></div>
-                        <span class="name">Attendance</span><span class="tag">AMS-Next</span>
-                    </a>
-                    <a href="http://217.145.247.42:81/DCInfo/Default.aspx?ReturnUrl=%2fDCInfo%2fHome.aspx" target="_blank" rel="noopener" class="mod" data-num="11">
-                        <span class="num">[11]</span><div class="tile"><i class="fas fa-circle-info"></i></div>
-                        <span class="name">Info Center</span><span class="tag">DCInfo</span>
-                    </a>
-                    <a href="https://docs.google.com/spreadsheets/d/1RHAskAXkUzMfORrokg2OZAO-e8gxf4aFwCucT1r9QvA/edit?pli=1&gid=686722685#gid=686722685" target="_blank" rel="noopener" class="mod" data-num="12">
-                        <span class="num">[12]</span><div class="tile"><i class="fas fa-handover"></i></div>
-                        <span class="name">DC Handover</span><span class="tag">Spreadsheet</span>
-                    </a>
-                </div>
+                <div class="modules-grid" id="modulesGrid"></div>
             </div>
 
             <div class="focus-card">
@@ -832,10 +909,10 @@
         </div>
     </div>
 
-    <!-- POPUP WINDOWS -->
+    <!-- NOTEPAD -->
     <div class="win win-notepad" id="winNotepad" style="top:120px; left:180px; width:440px;">
         <div class="win-head" data-drag="winNotepad">
-            <div class="win-title"><i class="fas fa-pen-to-square"></i> Quick Notepad</div>
+            <div class="win-title"><i class="fas fa-pen-to-square"></i><span>Quick Notepad</span></div>
             <div class="win-controls">
                 <button class="win-btn close" data-close="winNotepad"><i class="fas fa-xmark"></i></button>
             </div>
@@ -853,9 +930,10 @@
         </div>
     </div>
 
+    <!-- CALENDAR -->
     <div class="win" id="winCalendar" style="top:140px; left:260px; width:360px;">
         <div class="win-head" data-drag="winCalendar">
-            <div class="win-title"><i class="fas fa-calendar-days"></i> Calendar</div>
+            <div class="win-title"><i class="fas fa-calendar-days"></i><span>Calendar</span></div>
             <div class="win-controls">
                 <button class="win-btn close" data-close="winCalendar"><i class="fas fa-xmark"></i></button>
             </div>
@@ -873,9 +951,10 @@
         </div>
     </div>
 
+    <!-- CALCULATOR -->
     <div class="win" id="winCalculator" style="top:160px; left:340px; width:320px;">
         <div class="win-head" data-drag="winCalculator">
-            <div class="win-title"><i class="fas fa-calculator"></i> Calculator</div>
+            <div class="win-title"><i class="fas fa-calculator"></i><span>Calculator</span></div>
             <div class="win-controls">
                 <button class="win-btn close" data-close="winCalculator"><i class="fas fa-xmark"></i></button>
             </div>
@@ -889,9 +968,10 @@
         </div>
     </div>
 
+    <!-- WORLD CLOCK -->
     <div class="win" id="winClock" style="top:180px; left:420px; width:340px;">
         <div class="win-head" data-drag="winClock">
-            <div class="win-title"><i class="fas fa-clock"></i> World Clock</div>
+            <div class="win-title"><i class="fas fa-clock"></i><span>World Clock</span></div>
             <div class="win-controls">
                 <button class="win-btn close" data-close="winClock"><i class="fas fa-xmark"></i></button>
             </div>
@@ -957,35 +1037,61 @@
             const clearNoteBtn = document.getElementById('clearNoteBtn');
             const exportNoteBtn = document.getElementById('exportNoteBtn');
             const saveNoteBtn = document.getElementById('saveNoteBtn');
+            const modulesGrid = document.getElementById('modulesGrid');
 
             const VALID_ID = 'Yousuf';
             const VALID_PASSWORD = '1226';
 
-            // ========== LINKS ==========
-            const LINKS = [
-                { name: 'Menu Mix',           url: 'https://my670095-code.github.io/Menu-Mix/',         aliases: ['menu mix', 'menu-mix', 'menumix', 'menu', 'mix'] },
-                { name: 'Surprise Inventory', url: 'https://my670095-code.github.io/ViewX-s/',          aliases: ['surprise inventory', 'surprise', 'inventory', 'viewx', 'view x'] },
-                { name: 'SGM',                url: 'https://my670095-code.github.io/SGM/',              aliases: ['sgm', 's g m'] },
-                { name: 'Sales Analysis',     url: 'https://my670095-code.github.io/Sales-Analysis/',   aliases: ['sales analysis', 'sales', 'analysis', 'sales-analysis'] },
-                { name: 'Stream Planner',     url: 'https://cswebapps.com/creativeplanner/backend/Streamdashboard', aliases: ['stream planner', 'stream', 'planner', 'streamplanner', 'creativeplanner'] },
-                { name: 'Store Scheduling',   url: 'https://cswebapps.com/storescheduling/',                        aliases: ['store scheduling', 'store', 'scheduling', 'storescheduling'] },
-                { name: 'Intro',              url: 'https://drcafeinventory.azurewebsites.net/Dashboard',           aliases: ['intro', 'drcafe', 'dr cafe', 'inventory', 'drcafeinventory'] },
-                { name: 'DMS',                url: 'https://cswebapps.com/dmsweb/backend/dashboard',                aliases: ['dms', 'dmsweb', 'document management', 'document'] },
-                { name: 'Smart Brew',         url: 'https://cswebapps.com/StandAloneSBV2/login',                    aliases: ['smart brew', 'smartbrew', 'brew', 'sbv2', 'standalone'] },
-                { name: 'Attendance',         url: 'http://217.145.247.44:81/AMS-Next/DASHBOARD',                   aliases: ['attendance', 'ams', 'ams next', 'ams-next', 'amsnext'] },
-                { name: 'Info Center',        url: 'http://217.145.247.42:81/DCInfo/Default.aspx?ReturnUrl=%2fDCInfo%2fHome.aspx', aliases: ['info center', 'info', 'infocenter', 'dcinfo', 'dc info', 'center'] },
-                { name: 'DC Handover',        url: 'https://docs.google.com/spreadsheets/d/1RHAskAXkUzMfORrokg2OZAO-e8gxf4aFwCucT1r9QvA/edit?pli=1&gid=686722685#gid=686722685', aliases: ['dc handover', 'handover', 'dc handover sheet', 'dc', 'handover sheet', 'dchandover'] }
+            // ========== MODULES DATA ==========
+            // embedBlocked: known sites that refuse to be framed (X-Frame-Options / CSP)
+            const MODULES = [
+                { id: 'menu-mix',           num: 1,  name: 'Menu Mix',           tag: 'Dashboard',  icon: 'fa-chart-simple',    url: 'https://my670095-code.github.io/Menu-Mix/',         aliases: ['menu mix', 'menu-mix', 'menumix', 'menu', 'mix'], embedBlocked: false },
+                { id: 'surprise-inventory', num: 2,  name: 'Surprise Inventory', tag: 'Check',      icon: 'fa-boxes-stacked',   url: 'https://my670095-code.github.io/ViewX-s/',          aliases: ['surprise inventory', 'surprise', 'inventory', 'viewx', 'view x'], embedBlocked: false },
+                { id: 'sgm',                num: 3,  name: 'SGM',                tag: 'View',       icon: 'fa-people-group',    url: 'https://my670095-code.github.io/SGM/',              aliases: ['sgm', 's g m'], embedBlocked: false },
+                { id: 'sales-analysis',     num: 4,  name: 'Sales Analysis',     tag: 'Explore',    icon: 'fa-chart-line',      url: 'https://my670095-code.github.io/Sales-Analysis/',   aliases: ['sales analysis', 'sales', 'analysis', 'sales-analysis'], embedBlocked: false },
+                { id: 'stream-planner',     num: 5,  name: 'Stream Planner',     tag: 'Dashboard',  icon: 'fa-tower-broadcast', url: 'https://cswebapps.com/creativeplanner/backend/Streamdashboard', aliases: ['stream planner', 'stream', 'planner', 'streamplanner', 'creativeplanner'], embedBlocked: true },
+                { id: 'store-scheduling',   num: 6,  name: 'Store Scheduling',   tag: 'Open',       icon: 'fa-calendar-days',   url: 'https://cswebapps.com/storescheduling/',            aliases: ['store scheduling', 'store', 'scheduling', 'storescheduling'], embedBlocked: true },
+                { id: 'intro',              num: 7,  name: 'Intro',              tag: 'Dashboard',  icon: 'fa-mug-hot',         url: 'https://drcafeinventory.azurewebsites.net/Dashboard', aliases: ['intro', 'drcafe', 'dr cafe', 'inventory', 'drcafeinventory'], embedBlocked: true },
+                { id: 'dms',                num: 8,  name: 'DMS',                tag: 'Dashboard',  icon: 'fa-folder-tree',     url: 'https://cswebapps.com/dmsweb/backend/dashboard',    aliases: ['dms', 'dmsweb', 'document management', 'document'], embedBlocked: true },
+                { id: 'smart-brew',         num: 9,  name: 'Smart Brew',         tag: 'Login',      icon: 'fa-mug-saucer',      url: 'https://cswebapps.com/StandAloneSBV2/login',        aliases: ['smart brew', 'smartbrew', 'brew', 'sbv2', 'standalone'], embedBlocked: true },
+                { id: 'attendance',         num: 10, name: 'Attendance',         tag: 'AMS-Next',   icon: 'fa-user-clock',      url: 'http://217.145.247.44:81/AMS-Next/DASHBOARD',       aliases: ['attendance', 'ams', 'ams next', 'ams-next', 'amsnext'], embedBlocked: true },
+                { id: 'info-center',        num: 11, name: 'Info Center',        tag: 'DCInfo',     icon: 'fa-circle-info',     url: 'http://217.145.247.42:81/DCInfo/Default.aspx?ReturnUrl=%2fDCInfo%2fHome.aspx', aliases: ['info center', 'info', 'infocenter', 'dcinfo', 'dc info', 'center'], embedBlocked: true },
+                { id: 'dc-handover',        num: 12, name: 'DC Handover',        tag: 'Spreadsheet',icon: 'fa-table-columns',   url: 'https://docs.google.com/spreadsheets/d/1RHAskAXkUzMfORrokg2OZAO-e8gxf4aFwCucT1r9QvA/edit?pli=1&gid=686722685#gid=686722685', aliases: ['dc handover', 'handover', 'dc handover sheet', 'dc', 'handover sheet', 'dchandover'], embedBlocked: true }
             ];
 
-            const ALL_COMMANDS = [
-                'open menu mix', 'open surprise inventory', 'open sgm', 'open sales analysis',
-                'open stream planner', 'open store scheduling', 'open intro', 'open dms',
-                'open smart brew', 'open attendance', 'open info center', 'open dc handover',
-                'notepad', 'notes', 'calendar', 'cal', 'calculator', 'calc', 'clock',
-                'closeall', 'close all',
-                'help', 'ls', 'whoami', 'clear', 'sound on', 'sound off',
-                'pomodoro 5', 'pomodoro 15', 'pomodoro 25', 'pomodoro 45', 'pomodoro stop'
-            ];
+            // Build ALL_COMMANDS dynamically
+            const ALL_COMMANDS = (() => {
+                const base = [
+                    'notepad', 'notes', 'calendar', 'cal', 'calculator', 'calc', 'clock',
+                    'closeall', 'close all',
+                    'help', 'ls', 'whoami', 'clear', 'sound on', 'sound off',
+                    'pomodoro 5', 'pomodoro 15', 'pomodoro 25', 'pomodoro 45', 'pomodoro stop'
+                ];
+                const modCmds = MODULES.map(m => 'open ' + m.name.toLowerCase());
+                return base.concat(modCmds);
+            })();
+
+            // ========== RENDER MODULES ==========
+            function renderModules() {
+                modulesGrid.innerHTML = '';
+                MODULES.forEach(m => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'mod';
+                    btn.dataset.num = m.num;
+                    btn.dataset.moduleId = m.id;
+                    btn.title = m.name + ' — ' + m.url;
+                    btn.innerHTML = `
+                        <span class="num">[${m.num}]</span>
+                        <div class="tile"><i class="fas ${m.icon}"></i></div>
+                        <span class="name">${m.name}</span>
+                        <span class="tag">${m.tag}</span>
+                    `;
+                    btn.addEventListener('click', () => openModule(m.id));
+                    modulesGrid.appendChild(btn);
+                });
+            }
+            renderModules();
 
             // ========== TOAST ==========
             let toastTimeout = null;
@@ -1044,8 +1150,7 @@
 
             // ========== WINDOW SYSTEM ==========
             const zStack = [9000];
-            function bringToFront(id) {
-                const el = document.getElementById(id);
+            function bringToFront(el) {
                 if (!el) return;
                 const top = Math.max(...zStack) + 1;
                 zStack.push(top);
@@ -1055,7 +1160,7 @@
                 const el = document.getElementById(id);
                 if (!el) return;
                 el.classList.add('open');
-                bringToFront(id);
+                bringToFront(el);
             }
             function closeWindow(id) {
                 const el = document.getElementById(id);
@@ -1064,15 +1169,18 @@
             function closeAllWindows() {
                 document.querySelectorAll('.win.open').forEach(w => w.classList.remove('open'));
             }
-            document.querySelectorAll('.win-head').forEach(head => {
-                const winId = head.dataset.drag;
+
+            // Make any window header draggable
+            function makeDraggable(headEl) {
+                const winId = headEl.dataset.drag;
                 if (!winId) return;
                 let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
-                head.addEventListener('mousedown', e => {
+                headEl.addEventListener('mousedown', e => {
                     if (e.target.closest('.win-btn')) return;
                     dragging = true;
                     const el = document.getElementById(winId);
-                    bringToFront(winId);
+                    if (!el) return;
+                    bringToFront(el);
                     const rect = el.getBoundingClientRect();
                     ox = rect.left; oy = rect.top;
                     sx = e.clientX; sy = e.clientY;
@@ -1082,6 +1190,7 @@
                 window.addEventListener('mousemove', e => {
                     if (!dragging) return;
                     const el = document.getElementById(winId);
+                    if (!el) return;
                     const nx = ox + (e.clientX - sx);
                     const ny = oy + (e.clientY - sy);
                     el.style.left = Math.max(0, Math.min(window.innerWidth - 80, nx)) + 'px';
@@ -1091,15 +1200,163 @@
                     if (!dragging) return;
                     dragging = false;
                     const el = document.getElementById(winId);
-                    el.style.transition = '';
+                    if (el) el.style.transition = '';
                 });
-            });
+            }
+            document.querySelectorAll('.win-head[data-drag]').forEach(makeDraggable);
+
+            // Close buttons for static windows
             document.querySelectorAll('[data-close]').forEach(btn => {
                 btn.addEventListener('click', () => closeWindow(btn.dataset.close));
             });
             document.querySelectorAll('.win').forEach(w => {
-                w.addEventListener('mousedown', () => bringToFront(w.id));
+                w.addEventListener('mousedown', () => bringToFront(w));
             });
+
+            // ========== MODULE POPUP WINDOWS ==========
+            const openModuleWins = {}; // id -> DOM element
+
+            function openModule(moduleId) {
+                const m = MODULES.find(x => x.id === moduleId);
+                if (!m) return;
+
+                // If already open, bring to front and return
+                if (openModuleWins[moduleId]) {
+                    bringToFront(openModuleWins[moduleId]);
+                    return;
+                }
+
+                // Create window
+                const win = document.createElement('div');
+                win.className = 'win win-module';
+                win.id = 'win-mod-' + moduleId;
+
+                // Stagger position based on how many are already open
+                const openCount = Object.keys(openModuleWins).length;
+                const baseLeft = Math.max(20, (window.innerWidth - 960) / 2 + (openCount * 30) - 60);
+                const baseTop = Math.max(20, (window.innerHeight - 640) / 2 + (openCount * 30) - 60);
+                win.style.left = Math.min(baseLeft, window.innerWidth - 400) + 'px';
+                win.style.top = Math.min(baseTop, window.innerHeight - 200) + 'px';
+
+                win.innerHTML = `
+                    <div class="win-head" data-drag="win-mod-${moduleId}">
+                        <div class="win-title">
+                            <i class="fas ${m.icon}"></i>
+                            <span>${m.name}</span>
+                        </div>
+                        <div class="win-controls">
+                            <button class="win-btn close" title="Close"><i class="fas fa-xmark"></i></button>
+                        </div>
+                    </div>
+                    <div class="win-body">
+                        <div class="mod-fallback" id="fallback-${moduleId}">
+                            <div class="fallback-icon"><i class="fas ${m.icon}"></i></div>
+                            <h3>${m.name}</h3>
+                            <p>This site can't be embedded inside the dashboard for security reasons. Open it in a new tab to use it.</p>
+                            <button class="fallback-btn" data-open-external="${moduleId}">
+                                <i class="fas fa-arrow-up-right-from-square"></i> Open ${m.name} in new tab
+                            </button>
+                            <div class="fallback-hint">You can also use the "New tab" button below anytime.</div>
+                        </div>
+                        <iframe
+                            id="iframe-${moduleId}"
+                            src="${m.embedBlocked ? 'about:blank' : m.url}"
+                            referrerpolicy="no-referrer"
+                            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"
+                        ></iframe>
+                    </div>
+                    <div class="mod-toolbar">
+                        <div class="status" id="status-${moduleId}">
+                            <span class="dot"></span>
+                            <span class="status-text">${m.embedBlocked ? 'Blocked from embedding' : 'Loading…'}</span>
+                        </div>
+                        <div class="actions">
+                            <button class="tool-btn" data-reload="${moduleId}"><i class="fas fa-rotate-right"></i> Reload</button>
+                            <button class="tool-btn" data-open-external="${moduleId}"><i class="fas fa-arrow-up-right-from-square"></i> New tab</button>
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(win);
+                openModuleWins[moduleId] = win;
+
+                // Make draggable
+                makeDraggable(win.querySelector('.win-head'));
+
+                // Click brings to front
+                win.addEventListener('mousedown', () => bringToFront(win));
+
+                // Close
+                win.querySelector('.win-btn.close').addEventListener('click', () => {
+                    closeModuleWindow(moduleId);
+                });
+
+                // Status handling
+                const statusEl = win.querySelector('#status-' + moduleId);
+                const statusText = statusEl.querySelector('.status-text');
+                const fallbackEl = win.querySelector('#fallback-' + moduleId);
+                const iframeEl = win.querySelector('#iframe-' + moduleId);
+
+                if (m.embedBlocked) {
+                    // Show fallback immediately
+                    statusEl.classList.add('blocked');
+                    fallbackEl.classList.add('show');
+                    statusText.textContent = 'Blocked from embedding';
+                } else {
+                    // Try loading, with a timeout fallback
+                    let loaded = false;
+                    iframeEl.addEventListener('load', () => {
+                        loaded = true;
+                        statusEl.classList.add('loaded');
+                        statusText.textContent = 'Loaded';
+                    });
+                    // Fallback trigger after 3.5s
+                    setTimeout(() => {
+                        if (!loaded) {
+                            statusEl.classList.add('blocked');
+                            fallbackEl.classList.add('show');
+                            statusText.textContent = 'Could not embed';
+                        }
+                    }, 3500);
+                }
+
+                // Toolbar buttons
+                win.querySelectorAll('[data-open-external]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        window.open(m.url, '_blank', 'noopener');
+                        showToast('Opened ' + m.name + ' in new tab', false);
+                        cmdSound();
+                    });
+                });
+                win.querySelector('[data-reload]').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (m.embedBlocked) {
+                        // Just re-show fallback
+                        statusEl.classList.remove('loaded', 'blocked');
+                        fallbackEl.classList.remove('show');
+                        statusEl.classList.add('blocked');
+                        fallbackEl.classList.add('show');
+                        statusText.textContent = 'Blocked from embedding';
+                    } else {
+                        statusEl.classList.remove('loaded', 'blocked');
+                        fallbackEl.classList.remove('show');
+                        statusText.textContent = 'Loading…';
+                        iframeEl.src = 'about:blank';
+                        setTimeout(() => { iframeEl.src = m.url; }, 50);
+                    }
+                });
+
+                bringToFront(win);
+            }
+
+            function closeModuleWindow(moduleId) {
+                const win = openModuleWins[moduleId];
+                if (win) {
+                    win.remove();
+                    delete openModuleWins[moduleId];
+                }
+            }
 
             // ========== NOTEPAD ==========
             function updateCharCount() {
@@ -1398,8 +1655,8 @@
                     cmdSound(); return;
                 }
                 if (input === 'ls') {
-                    logCommand(rawInput, 'Modules: ' + LINKS.map(l => l.name).join(' · '));
-                    showToast('12 modules available', false);
+                    logCommand(rawInput, 'Modules: ' + MODULES.map(m => m.name).join(' · '));
+                    showToast(MODULES.length + ' modules available', false);
                     cmdSound(); return;
                 }
                 if (input === 'whoami') {
@@ -1468,20 +1725,18 @@
 
                 let target = input;
                 if (input.startsWith('open ')) target = input.substring(5).trim();
-                const match = LINKS.find(l => l.aliases.includes(target) || l.name.toLowerCase() === target);
+                const match = MODULES.find(m => m.aliases.includes(target) || m.name.toLowerCase() === target);
                 if (match) {
                     logCommand(rawInput, 'Opening ' + match.name + '...');
                     showToast('Opening ' + match.name + '...', false);
-                    window.open(match.url, '_blank', 'noopener');
-                    terminalInput.value = '';
+                    openModule(match.id);
                     cmdSound(); return;
                 }
-                const fuzzy = LINKS.find(l => l.aliases.some(a => target.includes(a) || a.includes(target)));
+                const fuzzy = MODULES.find(m => m.aliases.some(a => target.includes(a) || a.includes(target)));
                 if (fuzzy) {
                     logCommand(rawInput, 'Opening ' + fuzzy.name + '...');
                     showToast('Opening ' + fuzzy.name + '...', false);
-                    window.open(fuzzy.url, '_blank', 'noopener');
-                    terminalInput.value = '';
+                    openModule(fuzzy.id);
                     cmdSound(); return;
                 }
 
@@ -1539,6 +1794,8 @@
                 terminalLog.innerHTML = '';
                 terminalLog.classList.remove('has-content');
                 stopPomodoro();
+                // Close all module windows + other windows
+                Object.keys(openModuleWins).forEach(id => closeModuleWindow(id));
                 closeAllWindows();
             }
             function attemptLogin() {
@@ -1621,12 +1878,12 @@
                 if (e.key === '?') { e.preventDefault(); toggleShortcuts(); return; }
                 const num = parseInt(e.key, 10);
                 if (!isNaN(num) && num >= 1 && num <= 9) {
-                    const mod = document.querySelector('.mod[data-num="' + num + '"]');
+                    const mod = MODULES.find(m => m.num === num);
                     if (mod) {
                         e.preventDefault();
-                        showToast('Opening ' + mod.querySelector('.name').textContent + '...', false);
+                        showToast('Opening ' + mod.name + '...', false);
                         cmdSound();
-                        mod.click();
+                        openModule(mod.id);
                     }
                 }
             });
